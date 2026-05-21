@@ -1,0 +1,22 @@
+name: Security Checks
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  security-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run dependency-free project security scan
+        run: python scripts/security_scan.py
+      - name: Compile backend Python
+        run: python -m py_compile backend/app/main.py

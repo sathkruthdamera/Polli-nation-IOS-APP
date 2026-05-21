@@ -1,0 +1,37 @@
+# Secrets
+.env
+*.env
+Config/Secrets.xcconfig
+*Service-Info.plist
+*.p8
+*.p12
+*.mobileprovision
+
+# Xcode
+DerivedData/
+build/
+*.xcuserstate
+*.xccheckout
+*.moved-aside
+*.xcuserdatad/
+*.xcworkspace/xcuserdata/
+*.xcodeproj/xcuserdata/
+
+# Swift Package Manager
+.swiftpm/
+.build/
+Package.resolved
+
+# macOS
+.DS_Store
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+
+# Local deployment/runtime
+*.log

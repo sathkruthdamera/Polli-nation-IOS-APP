@@ -1,0 +1,27 @@
+services:
+  pollination-api:
+    build: ./backend
+    container_name: pollination-api
+    restart: unless-stopped
+    env_file:
+      - .env
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.pollination.rule=Host(`${API_HOST}`)"
+      - "traefik.http.routers.pollination.entrypoints=websecure"
+      - "traefik.http.routers.pollination.tls=true"
+      - "traefik.http.routers.pollination.tls.certresolver=letsencrypt"
+      - "traefik.http.services.pollination.loadbalancer.server.port=8000"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=4).read()"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
